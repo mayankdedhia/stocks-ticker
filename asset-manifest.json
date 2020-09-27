@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/stocks-ticker/static/css/main.5f361e03.chunk.css",
+    "main.js": "/stocks-ticker/static/js/main.a7bcfd8b.chunk.js",
+    "main.js.map": "/stocks-ticker/static/js/main.a7bcfd8b.chunk.js.map",
+    "runtime-main.js": "/stocks-ticker/static/js/runtime-main.7708b764.js",
+    "runtime-main.js.map": "/stocks-ticker/static/js/runtime-main.7708b764.js.map",
+    "static/js/2.0d05aaf2.chunk.js": "/stocks-ticker/static/js/2.0d05aaf2.chunk.js",
+    "static/js/2.0d05aaf2.chunk.js.map": "/stocks-ticker/static/js/2.0d05aaf2.chunk.js.map",
+    "index.html": "/stocks-ticker/index.html",
+    "precache-manifest.b2c291e5358abe994e14de665e74a8e8.js": "/stocks-ticker/precache-manifest.b2c291e5358abe994e14de665e74a8e8.js",
+    "service-worker.js": "/stocks-ticker/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/stocks-ticker/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.0d05aaf2.chunk.js.LICENSE.txt": "/stocks-ticker/static/js/2.0d05aaf2.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/stocks-ticker/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7708b764.js",
+    "static/js/2.0d05aaf2.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.a7bcfd8b.chunk.js"
+  ]
+}
