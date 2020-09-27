@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import StockData from "../common/common";
+import classNames from "classnames";
 
 function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
+  const [refreshCounter, setRefreshCounter] = useState(0);
   const [stocksData, setStocksData] = useState<{
     [key: string]: Array<StockData>;
   }>(props.data);
@@ -9,6 +11,10 @@ function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
   useEffect(() => {
     setStocksData(props.data);
   }, [props]);
+
+  setInterval(function () {
+    setRefreshCounter(refreshCounter + 1);
+  }, 1000);
 
   return (
     <table>
@@ -22,16 +28,27 @@ function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
       <tbody>
         {Object.keys(stocksData).map((stock_name) => {
           const stockHistory = stocksData[stock_name];
-          const stockValue = stockHistory[
-            stockHistory.length - 1
-          ].value.toFixed(2);
+          const stockValue = stockHistory[stockHistory.length - 1].value;
+          const lastStockValue =
+            stockHistory.length > 1
+              ? stockHistory[stockHistory.length - 2].value
+              : stockValue;
+          const valueClass = classNames({
+            red: lastStockValue > stockValue,
+            green: stockValue > lastStockValue,
+          });
+          const timeDiff = Math.floor(
+            (new Date().getTime() -
+              stockHistory[stockHistory.length - 1].timeStamp.getTime()) /
+              1000
+          );
+          const timeStr =
+            timeDiff < 2 ? `${timeDiff} second ago` : `${timeDiff} seconds ago`;
           return (
             <tr key={stock_name}>
-              <td>{stock_name}</td>
-              <td>{stockValue}</td>
-              <td>
-                {stockHistory[stockHistory.length - 1].timeStamp.toISOString()}
-              </td>
+              <td className="capitalize">{stock_name}</td>
+              <td className={valueClass}>{stockValue.toFixed(2)}</td>
+              <td>{timeStr}</td>
             </tr>
           );
         })}

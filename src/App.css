@@ -27,3 +27,15 @@ table th {
   border: 1px solid #dbdbdb;
   padding: 0.3em;
 }
+
+.capitalize {
+  text-transform: uppercase;
+}
+
+.red {
+  color: #f00;
+}
+
+.green {
+  color: #0f0;
+}
