@@ -1,21 +1,44 @@
-import React, { useState } from "react";
-import StockData from "../common/common";
+import React, { useState, useEffect, useRef } from "react";
+import { StockData } from "../common/common";
 import classNames from "classnames";
 
-function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
+function StockTable(props: {
+  data: { [key: string]: Array<StockData> };
+  onStockSelected: Function;
+}) {
   const [refreshCounter, setRefreshCounter] = useState(0);
+  const [selectedStock, setSelectedStock] = useState<string | null>(null);
+  const selectedRow = useRef<HTMLTableRowElement>();
+  const intervalRef = useRef<NodeJS.Timeout>();
 
   // This is only to refresh table every 1 second
-  setInterval(function () {
-    setRefreshCounter(refreshCounter + 1);
-  }, 1000);
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(function () {
+      setRefreshCounter(refreshCounter + 1);
+    }, 1000);
+  });
+
+  useEffect(() => {
+    if (selectedRow.current) {
+      const prevSelectedRows: HTMLCollectionOf<Element> = document.getElementsByClassName(
+        "selected"
+      );
+      if (prevSelectedRows.length > 0) {
+        prevSelectedRows[0].classList.remove("selected");
+      }
+      selectedRow.current.classList.add("selected");
+    }
+  }, [selectedStock]);
 
   return (
     <table>
       <thead>
         <tr>
           <th>Ticker</th>
-          <th>Price</th>
+          <th>Price ($)</th>
           <th>Last Update</th>
         </tr>
       </thead>
@@ -41,7 +64,16 @@ function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
 
           // Each row represents data for a stock
           return (
-            <tr key={stock_name}>
+            <tr
+              key={stock_name}
+              onClick={function (e) {
+                selectedRow.current = e.currentTarget;
+                setSelectedStock(stock_name);
+                if (props.onStockSelected) {
+                  props.onStockSelected(stock_name);
+                }
+              }}
+            >
               <td className="capitalize">{stock_name}</td>
               <td className={valueClass}>{stockValue.toFixed(2)}</td>
               <td>{timeStr}</td>

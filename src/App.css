@@ -6,11 +6,12 @@
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: calc(10px + 2vmin);
   color: white;
+  flex-wrap: wrap;
 }
 
 .App-link {
@@ -29,7 +30,7 @@ table th {
 }
 
 table thead {
-  background-color: #ac2d2d;
+  background-color: #4c4091;
 }
 
 .capitalize {
@@ -42,4 +43,33 @@ table thead {
 
 .green {
   color: #0f0;
+}
+
+table tbody tr:hover {
+  cursor: pointer;
+  background-color: gray;
+}
+
+table tbody tr.selected {
+  background-color: #000;
+}
+
+canvas {
+  box-sizing: border-box;
+  border: white 1.5px solid;
+  padding: 30px;
+}
+
+.graph-container {
+  width: 50%;
+}
+
+.graph-container p {
+  text-align: left;
+  border: white 1.5px solid;
+  margin: 0;
+  padding: 10px;
+  border-bottom-width: 0;
+  background-color: #4c4091;
+  font-weight: bold;
 }
