@@ -56,16 +56,6 @@ function App() {
     setStockData(data);
   }, [tickData]);
 
-  // useEffect(() => {
-  //   console.log(`Ticker status changed : ${isTickerLive}`);
-  //   if (isTickerLive) {
-  //     const container = document.getElementById("container");
-  //     if (container != null) {
-  //       container.innerHTML = "Show table here";
-  //     }
-  //   }
-  // }, [isTickerLive]);
-
   return (
     <div className="App">
       <div id="container" className="app-body">

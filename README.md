@@ -1,6 +1,6 @@
-Demo code to showcare websockets implementation with React and TS
+Code to showcase websockets implementation with React and TS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The code fetches stock information over websocket and displays it in table.
 
 ## Available Scripts
 
@@ -9,38 +9,21 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000/stocks-ticker](http://localhost:3000/stocks-ticker) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
+### `npm run deploy`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The code is then deployed to the homepage url mentioned in the package.json.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Known Issues
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Currently the code is marked to be deployed on [https://mayankdedhia.github.io/stocks-ticker/](https://mayankdedhia.github.io/stocks-ticker/) which is over secure http protocol and the websocket url being used is [ws://stocks.mnet.website/](ws://stocks.mnet.website/) over unsecured websocket protocol. This is not allowed by the browsers if not running from localhost.
+Ideal solution is to have secure websocket protocol and the not advisable easy solution is to host the code over unsecure http.
+If both the above options are not feasible then a proxy server can be used which will read values from unsecure websocket and serve it over secure websocket.
