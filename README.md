@@ -2,6 +2,8 @@ Code to showcase websockets implementation with React and TS
 
 The code fetches stock information over websocket and displays it in table.
 
+A graph view is available on click of any of the stock row. This graph can be zoomed and panned.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -27,3 +29,5 @@ The code is then deployed to the homepage url mentioned in the package.json.
 Currently the code is marked to be deployed on [https://mayankdedhia.github.io/stocks-ticker/](https://mayankdedhia.github.io/stocks-ticker/) which is over secure http protocol and the websocket url being used is [ws://stocks.mnet.website/](ws://stocks.mnet.website/) over unsecured websocket protocol. This is not allowed by the browsers if not running from localhost.
 Ideal solution is to have secure websocket protocol and the not advisable easy solution is to host the code over unsecure http.
 If both the above options are not feasible then a proxy server can be used which will read values from unsecure websocket and serve it over secure websocket.
+
+As a workaround currently hosted at [http://s3.ap-south-1.amazonaws.com/stocks-ticker-mayankdedhia/index.html](http://s3.ap-south-1.amazonaws.com/stocks-ticker-mayankdedhia/index.html)

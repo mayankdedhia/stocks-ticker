@@ -16,9 +16,9 @@ const lineData = {
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: "miter",
-      pointBorderColor: "rgba(75,192,192,1)",
+      pointBorderColor: "rgba(255,255,255,1)",
       pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
+      pointBorderWidth: 8,
       pointHoverRadius: 5,
       pointHoverBackgroundColor: "rgba(75,192,192,1)",
       pointHoverBorderColor: "rgba(220,220,220,1)",
@@ -37,10 +37,8 @@ function LineChart(props: { selectedStock: string; data: Array<StockData> }) {
     setStockData(props.data);
   }, [props.data]);
 
-  // This is only to refresh table every 1 second
-
   lineData.datasets[0].data = stockData.map((value: StockData) => {
-    return value.value;
+    return parseFloat(value.value.toFixed(2));
   });
 
   lineData.labels = stockData.map((value: StockData) => {
@@ -51,7 +49,12 @@ function LineChart(props: { selectedStock: string; data: Array<StockData> }) {
 
   return (
     <div className="graph-container">
-      <p>{`Graph: ${props.selectedStock.toUpperCase()}`}</p>
+      <p>
+        <div>{`Graph: ${props.selectedStock.toUpperCase()}`}</div>
+        <div className="info">
+          <span>zoom and pan available</span>
+        </div>
+      </p>
       <Line data={lineData} options={chartOptions}></Line>
     </div>
   );

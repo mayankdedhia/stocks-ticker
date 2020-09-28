@@ -7,20 +7,24 @@ import "./App.css";
 const tickerURL = "ws://stocks.mnet.website/";
 
 function App() {
-  const [isTickerLive, setTickerStatus] = useState(false);
+  const [isTickerLive, setTickerStatus] = useState<boolean | null>(null);
   const connection = useRef<WebSocket | null>(null);
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
+  // Contains latest tick data
   const [tickData, setTickData] = useState<{
     [key: string]: StockData;
   }>({});
+  // Contains all the tick data since the page is loaded
   const [stocksData, setStockData] = useState<{
     [key: string]: Array<StockData>;
   }>({});
 
   useEffect(() => {
+    document.title = "Stock ticker";
     connection.current = new WebSocket(tickerURL);
-    connection.current.onopen = () => {
-      setTickerStatus(true);
+
+    connection.current.onclose = function () {
+      setTickerStatus(false);
     };
     connection.current.onmessage = (message) => {
       if (message.data != null) {
@@ -45,10 +49,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    let dataFetched: boolean = false;
     let data: {
       [key: string]: Array<StockData>;
     } = Object.assign({}, stocksData);
     for (const key in tickData) {
+      dataFetched = true;
       if (data[key] != null) {
         data[key].push(tickData[key]);
       } else {
@@ -56,8 +62,11 @@ function App() {
       }
     }
     setStockData(data);
-    console.log("here");
-  }, [tickData]);
+    if (dataFetched && !isTickerLive) {
+      setTickerStatus(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tickData]); // Should be dependent on only last tick data
 
   const onStockSelected: Function = (stock: string) => {
     setSelectedStock(stock);
@@ -66,7 +75,10 @@ function App() {
   return (
     <div className="App">
       <div id="container" className="app-body">
-        {!isTickerLive && <div>Connecting to the stock ticker</div>}
+        {isTickerLive == null && <div>Loading...</div>}
+        {isTickerLive === false && (
+          <div>Connection lost, please reload the page</div>
+        )}
         {isTickerLive && (
           <StockTable
             data={stocksData}
