@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import StockData from "../common/common";
 import classNames from "classnames";
 
 function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  const [stocksData, setStocksData] = useState<{
-    [key: string]: Array<StockData>;
-  }>(props.data);
 
-  useEffect(() => {
-    setStocksData(props.data);
-  }, [props]);
-
+  // This is only to refresh table every 1 second
   setInterval(function () {
     setRefreshCounter(refreshCounter + 1);
   }, 1000);
@@ -26,8 +20,8 @@ function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
         </tr>
       </thead>
       <tbody>
-        {Object.keys(stocksData).map((stock_name) => {
-          const stockHistory = stocksData[stock_name];
+        {Object.keys(props.data).map((stock_name) => {
+          const stockHistory = props.data[stock_name];
           const stockValue = stockHistory[stockHistory.length - 1].value;
           const lastStockValue =
             stockHistory.length > 1
@@ -44,6 +38,8 @@ function StockTable(props: { data: { [key: string]: Array<StockData> } }) {
           );
           const timeStr =
             timeDiff < 2 ? `${timeDiff} second ago` : `${timeDiff} seconds ago`;
+
+          // Each row represents data for a stock
           return (
             <tr key={stock_name}>
               <td className="capitalize">{stock_name}</td>
